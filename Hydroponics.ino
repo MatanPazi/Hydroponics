@@ -4,10 +4,14 @@
  * https://randomnerdtutorials.com/installing-the-esp32-board-in-arduino-ide-windows-instructions/
  * Analog inputs:
  * https://randomnerdtutorials.com/esp32-adc-analog-read-arduino-ide/
+ * I2C LCD Display:
+ * https://www.circuitschools.com/interfacing-16x2-lcd-module-with-esp32-with-and-without-i2c/#Method_2_Interfacing_16X2_LCD_module_with_ESP_32_using_I2C_adapter
  */
+
 #include "DHT.h"
 #include <OneWire.h>
 #include <DallasTemperature.h>
+#include <LiquidCrystal_I2C.h>
 //
 #define DHTPIN 12                     //Modify to the pin we're connected to (IO 12). 
 #define DHTTYPE DHT21                 //AM2301 
@@ -21,10 +25,13 @@ uint16_t TDSVal = 0
 DHT dht(DHTPIN, DHTTYPE);
 OneWire oneWire(ONE_WIRE_BUS);
 DallasTemperature sensors(&oneWire);
+LiquidCrystal_I2C LCD(0x27, 16,2);  //
  
 void setup() 
 {
   //ADC default attenuation is 11db , so no need to set it (~2600 mV FS).
+  LCD.init();
+  LCD.backlight();
   Serial.begin(9600); 
   sensors.begin();
   delay(200);
@@ -34,6 +41,7 @@ void setup()
  
 void loop() 
 {
+  LCD.setCursor(0, 1);
   uint8_t Water_Temp = 0;
   pHVal = analogRead(pHPin);
   TDSVal = analogRead(TDSPin);
@@ -60,6 +68,7 @@ void loop()
     Serial.print("Water Temperature");
     Serial.print(Water_Temp);
     Serial.println(" C");
+    // Scroll through the data and present on the LCD
     delay(5000);
  }
 }
