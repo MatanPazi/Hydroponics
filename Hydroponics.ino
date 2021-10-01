@@ -25,7 +25,7 @@ uint16_t TDSVal = 0
 DHT dht(DHTPIN, DHTTYPE);
 OneWire oneWire(ONE_WIRE_BUS);
 DallasTemperature sensors(&oneWire);
-LiquidCrystal_I2C LCD(0x27, 16,2);  //
+LiquidCrystal_I2C LCD(0x27, 16,2);  //Will need to scan for I2C addresses if 0x27 isn't correct
  
 void setup() 
 {
