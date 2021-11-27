@@ -28,8 +28,8 @@ uint16_t pHVal = 0;
 uint16_t TDSVal = 0;
 //y = ax + b, where x are the pH sensor readings and y is the actual pH value
 //measured using water (7 pH) and lemon extract (2 pH)
-const float a = -10.0;
-const float b = 22.5;
+const float a = -9.75;
+const float b = 22.11;
 // Initialize DHT sensor.
 // Note that older versions of this library took an optional third parameter to
 // tweak the timings for faster processors.  This parameter is no longer needed
